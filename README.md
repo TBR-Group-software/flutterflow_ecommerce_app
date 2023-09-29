@@ -1,2 +1,7 @@
-# flutterflow_ecommerce_app
-My Shop e-commerce mobile app built with FlutterFlow &amp; Firebase
+# MyShop FlutterFlow
+
+A new Flutter project.
+
+## Getting Started
+
+FlutterFlow projects are built to run on the Flutter _stable_ release.
