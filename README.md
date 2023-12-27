@@ -19,7 +19,7 @@ Link to the project: https://app.flutterflow.io/project/my-shop-flutter-flow-c86
 - Ability to add products to favorites
 - User profile
 - Cart
-- Checout
+- Checkout
 
 <p>
   <img alt="Onboarding" src="app_screens/phone_sign_in_1.png" width="250"/>
