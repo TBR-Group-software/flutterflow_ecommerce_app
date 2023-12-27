@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/home/see_all/see_all_widget.dart';
 import 'home_widget.dart' show HomeWidget;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';

@@ -2,6 +2,7 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'categories_bottom_sheet_model.dart';
@@ -133,6 +134,23 @@ class _CategoriesBottomSheetWidgetState
                       onTap: () async {
                         Navigator.pop(
                             context, listViewCategoriesRecord.reference.id);
+
+                        context.pushNamed(
+                          'CategoryPage',
+                          queryParameters: {
+                            'title': serializeParam(
+                              listViewCategoriesRecord.title,
+                              ParamType.String,
+                            ),
+                            'category': serializeParam(
+                              listViewCategoriesRecord,
+                              ParamType.Document,
+                            ),
+                          }.withoutNulls,
+                          extra: <String, dynamic>{
+                            'category': listViewCategoriesRecord,
+                          },
+                        );
                       },
                       child: Text(
                         listViewCategoriesRecord.title,

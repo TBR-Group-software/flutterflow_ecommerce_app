@@ -7,6 +7,7 @@ import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'enter_phone_widget.dart' show EnterPhoneWidget;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,7 @@ class EnterPhoneModel extends FlutterFlowModel<EnterPhoneWidget> {
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
   // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   final textFieldMask = MaskTextInputFormatter(mask: '(##) ### ## ##');
   String? Function(BuildContext, String?)? textControllerValidator;
@@ -29,6 +31,7 @@ class EnterPhoneModel extends FlutterFlowModel<EnterPhoneWidget> {
 
   void dispose() {
     unfocusNode.dispose();
+    textFieldFocusNode?.dispose();
     textController?.dispose();
   }
 

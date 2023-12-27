@@ -11,6 +11,7 @@ import '/navigation/bottom_navigation_bar/bottom_navigation_bar_widget.dart';
 import '/profile/profile/profile_widget.dart';
 import 'navigation_widget.dart' show NavigationWidget;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 

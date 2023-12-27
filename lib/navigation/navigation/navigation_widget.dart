@@ -10,6 +10,7 @@ import '/home/home_app_bar/home_app_bar_widget.dart';
 import '/navigation/bottom_navigation_bar/bottom_navigation_bar_widget.dart';
 import '/profile/profile/profile_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'navigation_model.dart';
@@ -42,6 +43,15 @@ class _NavigationWidgetState extends State<NavigationWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -121,7 +131,7 @@ class _NavigationWidgetState extends State<NavigationWidget> {
                       child: BottomNavigationBarWidget(),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(0.00, -1.00),
+                      alignment: AlignmentDirectional(0.0, -1.0),
                       child: Builder(
                         builder: (context) {
                           if (FFAppState().pageNumber == 1) {

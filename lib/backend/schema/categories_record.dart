@@ -31,10 +31,16 @@ class CategoriesRecord extends FirestoreRecord {
   String get catalogueId => _catalogueId ?? '';
   bool hasCatalogueId() => _catalogueId != null;
 
+  // "product_types" field.
+  List<String>? _productTypes;
+  List<String> get productTypes => _productTypes ?? const [];
+  bool hasProductTypes() => _productTypes != null;
+
   void _initializeFields() {
     _title = snapshotData['title'] as String?;
     _createdAt = snapshotData['created_at'] as DateTime?;
     _catalogueId = snapshotData['catalogue_id'] as String?;
+    _productTypes = getDataList(snapshotData['product_types']);
   }
 
   static CollectionReference get collection =>
@@ -92,14 +98,16 @@ class CategoriesRecordDocumentEquality implements Equality<CategoriesRecord> {
 
   @override
   bool equals(CategoriesRecord? e1, CategoriesRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.title == e2?.title &&
         e1?.createdAt == e2?.createdAt &&
-        e1?.catalogueId == e2?.catalogueId;
+        e1?.catalogueId == e2?.catalogueId &&
+        listEquality.equals(e1?.productTypes, e2?.productTypes);
   }
 
   @override
-  int hash(CategoriesRecord? e) =>
-      const ListEquality().hash([e?.title, e?.createdAt, e?.catalogueId]);
+  int hash(CategoriesRecord? e) => const ListEquality()
+      .hash([e?.title, e?.createdAt, e?.catalogueId, e?.productTypes]);
 
   @override
   bool isValidKey(Object? o) => o is CategoriesRecord;

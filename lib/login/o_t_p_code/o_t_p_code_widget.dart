@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'o_t_p_code_model.dart';
@@ -38,6 +39,15 @@ class _OTPCodeWidgetState extends State<OTPCodeWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -73,7 +83,7 @@ class _OTPCodeWidgetState extends State<OTPCodeWidget> {
                   ),
                 ),
                 child: Align(
-                  alignment: AlignmentDirectional(-1.00, 0.00),
+                  alignment: AlignmentDirectional(-1.0, 0.0),
                   child: Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 32.0, 0.0),
@@ -98,7 +108,7 @@ class _OTPCodeWidgetState extends State<OTPCodeWidget> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(-1.00, 0.00),
+                      alignment: AlignmentDirectional(-1.0, 0.0),
                       child: Text(
                         'Please enter Code sent to',
                         textAlign: TextAlign.start,
@@ -183,7 +193,12 @@ class _OTPCodeWidgetState extends State<OTPCodeWidget> {
                         fieldHeight: 42.0,
                         fieldWidth: 48.0,
                         borderWidth: 2.0,
-                        borderRadius: BorderRadius.circular(8.0),
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(8.0),
+                          bottomRight: Radius.circular(8.0),
+                          topLeft: Radius.circular(8.0),
+                          topRight: Radius.circular(8.0),
+                        ),
                         shape: PinCodeFieldShape.underline,
                         activeColor: Color(0xFF46AB62),
                         inactiveColor: FlutterFlowTheme.of(context).alternate,
@@ -253,8 +268,7 @@ class _OTPCodeWidgetState extends State<OTPCodeWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
-                          16.0, 16.0, 16.0, 16.0),
+                      padding: EdgeInsets.all(16.0),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,

@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'favorite_model.dart';
@@ -106,7 +107,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
                         FormFieldController<String>(
                       _model.dropDownValue ??= 'ASC',
                     ),
-                    options: ['ASC', 'DESC'],
+                    options: List<String>.from(['ASC', 'DESC']),
                     optionLabels: ['lowest to hight', 'highest to low'],
                     onChanged: (val) =>
                         setState(() => _model.dropDownValue = val),
@@ -127,7 +128,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
                     borderColor: Colors.transparent,
                     borderWidth: 0.0,
                     borderRadius: 8.0,
-                    margin: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    margin: EdgeInsets.all(0.0),
                     hidesUnderline: true,
                     isSearchable: false,
                     isMultiSelect: false,
@@ -196,6 +197,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
                                     .contains(currentUserUid) ==
                                 true,
                             docRef: gridViewProductsRecord.reference,
+                            doc: gridViewProductsRecord,
                           );
                         },
                       );
@@ -260,6 +262,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
                                     .contains(currentUserUid) ==
                                 true,
                             docRef: gridViewProductsRecord.reference,
+                            doc: gridViewProductsRecord,
                           );
                         },
                       );

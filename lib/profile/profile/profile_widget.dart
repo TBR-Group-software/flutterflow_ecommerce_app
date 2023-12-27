@@ -2,6 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -68,7 +69,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 topRight: Radius.circular(0.0),
               ),
             ),
-            alignment: AlignmentDirectional(0.00, 1.00),
+            alignment: AlignmentDirectional(0.0, 1.0),
             child: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 20.0),
               child: Row(
@@ -435,7 +436,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             ),
           ),
           Align(
-            alignment: AlignmentDirectional(-1.00, 0.00),
+            alignment: AlignmentDirectional(-1.0, 0.0),
             child: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 0.0, 8.0),
               child: Text(

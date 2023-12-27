@@ -6,7 +6,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
 
-import '../../auth/base_auth_user_provider.dart';
+import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
 import '/main.dart';
@@ -107,6 +107,42 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'OTPCode',
           path: '/oTPCode',
           builder: (context, params) => OTPCodeWidget(),
+        ),
+        FFRoute(
+          name: 'CategoryPage',
+          path: '/categoryPage',
+          asyncParams: {
+            'category': getDoc(['categories'], CategoriesRecord.fromSnapshot),
+          },
+          builder: (context, params) => CategoryPageWidget(
+            title: params.getParam('title', ParamType.String),
+            category: params.getParam('category', ParamType.Document),
+          ),
+        ),
+        FFRoute(
+          name: 'filters',
+          path: '/filters',
+          builder: (context, params) => FiltersWidget(),
+        ),
+        FFRoute(
+          name: 'PorductPage',
+          path: '/porductPage',
+          asyncParams: {
+            'product': getDoc(['products'], ProductsRecord.fromSnapshot),
+          },
+          builder: (context, params) => PorductPageWidget(
+            product: params.getParam('product', ParamType.Document),
+          ),
+        ),
+        FFRoute(
+          name: 'CartPage',
+          path: '/cartPage',
+          builder: (context, params) => CartPageWidget(),
+        ),
+        FFRoute(
+          name: 'CheckOutPage',
+          path: '/checkOutPage',
+          builder: (context, params) => CheckOutPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -305,13 +341,20 @@ class FFRoute {
                   key: state.pageKey,
                   child: child,
                   transitionDuration: transitionInfo.duration,
-                  transitionsBuilder: PageTransition(
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) =>
+                          PageTransition(
                     type: transitionInfo.transitionType,
                     duration: transitionInfo.duration,
                     reverseDuration: transitionInfo.duration,
                     alignment: transitionInfo.alignment,
                     child: child,
-                  ).transitionsBuilder,
+                  ).buildTransitions(
+                    context,
+                    animation,
+                    secondaryAnimation,
+                    child,
+                  ),
                 )
               : MaterialPage(key: state.pageKey, child: child);
         },

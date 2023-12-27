@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/home/see_all/see_all_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
@@ -181,7 +182,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   ),
                                 ),
                                 child: Align(
-                                  alignment: AlignmentDirectional(0.00, 0.00),
+                                  alignment: AlignmentDirectional(0.0, 0.0),
                                   child: Text(
                                     listViewCatalogueRecord.title,
                                     textAlign: TextAlign.center,
@@ -208,7 +209,7 @@ class _HomeWidgetState extends State<HomeWidget> {
             ),
           ),
           Align(
-            alignment: AlignmentDirectional(-1.00, 0.00),
+            alignment: AlignmentDirectional(-1.0, 0.0),
             child: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(16.0, 32.0, 0.0, 0.0),
               child: Text(
@@ -286,6 +287,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                               .contains(currentUserUid) ==
                           true,
                       docRef: gridViewProductsRecord.reference,
+                      doc: gridViewProductsRecord,
                     );
                   },
                 ),

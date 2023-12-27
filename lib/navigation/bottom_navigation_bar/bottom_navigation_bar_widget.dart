@@ -1,8 +1,11 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -75,7 +78,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget>
       child: Stack(
         children: [
           Align(
-            alignment: AlignmentDirectional(0.00, 1.00),
+            alignment: AlignmentDirectional(0.0, 1.0),
             child: Container(
               width: double.infinity,
               height: 53.0,
@@ -482,16 +485,23 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget>
             ),
           ),
           Align(
-            alignment: AlignmentDirectional(1.00, -1.00),
+            alignment: AlignmentDirectional(1.0, -1.0),
             child: InkWell(
               splashColor: Colors.transparent,
               focusColor: Colors.transparent,
               hoverColor: Colors.transparent,
               highlightColor: Colors.transparent,
               onTap: () async {
-                _model.updatePage(() {
-                  FFAppState().cartOpened = true;
-                });
+                if (!FFAppState().cartOpened) {
+                  setState(() {
+                    FFAppState().cartOpened = true;
+                  });
+                } else {
+                  context.pushNamed('CartPage');
+
+                  return;
+                }
+
                 if (animationsMap['columnOnActionTriggerAnimation'] != null) {
                   await animationsMap['columnOnActionTriggerAnimation']!
                       .controller
@@ -547,34 +557,109 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget>
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 2.0),
-                          child: Text(
-                            '\$239.98',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'SF Pro Text',
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  fontSize: 11.0,
-                                  fontWeight: FontWeight.bold,
-                                  useGoogleFonts: false,
-                                ),
+                          child: StreamBuilder<List<CartRecord>>(
+                            stream: queryCartRecord(
+                              queryBuilder: (cartRecord) => cartRecord.where(
+                                'user_id',
+                                isEqualTo: currentUserUid,
+                              ),
+                              singleRecord: true,
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        FlutterFlowTheme.of(context).primary,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }
+                              List<CartRecord> textCartRecordList =
+                                  snapshot.data!;
+                              // Return an empty Container when the item does not exist.
+                              if (snapshot.data!.isEmpty) {
+                                return Container();
+                              }
+                              final textCartRecord =
+                                  textCartRecordList.isNotEmpty
+                                      ? textCartRecordList.first
+                                      : null;
+                              return Text(
+                                '\$${formatNumber(
+                                  textCartRecord?.price,
+                                  formatType: FormatType.custom,
+                                  format: '##0.00',
+                                  locale: '',
+                                )}',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'SF Pro Text',
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      fontSize: 11.0,
+                                      fontWeight: FontWeight.bold,
+                                      useGoogleFonts: false,
+                                    ),
+                              );
+                            },
                           ),
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 2.0, 0.0, 0.0),
-                          child: Text(
-                            '2 items',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'SF Pro Text',
-                                  color: Color(0x98FFFFFF),
-                                  fontSize: 11.0,
-                                  fontWeight: FontWeight.bold,
-                                  useGoogleFonts: false,
-                                ),
+                          child: StreamBuilder<List<CartRecord>>(
+                            stream: queryCartRecord(
+                              queryBuilder: (cartRecord) => cartRecord.where(
+                                'user_id',
+                                isEqualTo: currentUserUid,
+                              ),
+                              singleRecord: true,
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        FlutterFlowTheme.of(context).primary,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }
+                              List<CartRecord> textCartRecordList =
+                                  snapshot.data!;
+                              // Return an empty Container when the item does not exist.
+                              if (snapshot.data!.isEmpty) {
+                                return Container();
+                              }
+                              final textCartRecord =
+                                  textCartRecordList.isNotEmpty
+                                      ? textCartRecordList.first
+                                      : null;
+                              return Text(
+                                '${textCartRecord?.content?.length?.toString()} items',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'SF Pro Text',
+                                      color: Color(0x98FFFFFF),
+                                      fontSize: 11.0,
+                                      fontWeight: FontWeight.bold,
+                                      useGoogleFonts: false,
+                                    ),
+                              );
+                            },
                           ),
                         ),
                       ],

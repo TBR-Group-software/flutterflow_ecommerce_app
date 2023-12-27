@@ -61,6 +61,36 @@ class ProductsRecord extends FirestoreRecord {
   List<String> get inFavorites => _inFavorites ?? const [];
   bool hasInFavorites() => _inFavorites != null;
 
+  // "type" field.
+  String? _type;
+  String get type => _type ?? '';
+  bool hasType() => _type != null;
+
+  // "brand" field.
+  String? _brand;
+  String get brand => _brand ?? '';
+  bool hasBrand() => _brand != null;
+
+  // "sizes" field.
+  List<String>? _sizes;
+  List<String> get sizes => _sizes ?? const [];
+  bool hasSizes() => _sizes != null;
+
+  // "colors" field.
+  List<String>? _colors;
+  List<String> get colors => _colors ?? const [];
+  bool hasColors() => _colors != null;
+
+  // "in_stock" field.
+  bool? _inStock;
+  bool get inStock => _inStock ?? false;
+  bool hasInStock() => _inStock != null;
+
+  // "color_images" field.
+  List<String>? _colorImages;
+  List<String> get colorImages => _colorImages ?? const [];
+  bool hasColorImages() => _colorImages != null;
+
   void _initializeFields() {
     _title = snapshotData['title'] as String?;
     _price = castToType<double>(snapshotData['price']);
@@ -71,6 +101,12 @@ class ProductsRecord extends FirestoreRecord {
     _imagesUrl = getDataList(snapshotData['images_url']);
     _createdAt = snapshotData['created_at'] as DateTime?;
     _inFavorites = getDataList(snapshotData['in_favorites']);
+    _type = snapshotData['type'] as String?;
+    _brand = snapshotData['brand'] as String?;
+    _sizes = getDataList(snapshotData['sizes']);
+    _colors = getDataList(snapshotData['colors']);
+    _inStock = snapshotData['in_stock'] as bool?;
+    _colorImages = getDataList(snapshotData['color_images']);
   }
 
   static CollectionReference get collection =>
@@ -115,6 +151,9 @@ Map<String, dynamic> createProductsRecordData({
   int? raiting,
   bool? featured,
   DateTime? createdAt,
+  String? type,
+  String? brand,
+  bool? inStock,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -125,6 +164,9 @@ Map<String, dynamic> createProductsRecordData({
       'raiting': raiting,
       'featured': featured,
       'created_at': createdAt,
+      'type': type,
+      'brand': brand,
+      'in_stock': inStock,
     }.withoutNulls,
   );
 
@@ -145,7 +187,13 @@ class ProductsRecordDocumentEquality implements Equality<ProductsRecord> {
         e1?.featured == e2?.featured &&
         listEquality.equals(e1?.imagesUrl, e2?.imagesUrl) &&
         e1?.createdAt == e2?.createdAt &&
-        listEquality.equals(e1?.inFavorites, e2?.inFavorites);
+        listEquality.equals(e1?.inFavorites, e2?.inFavorites) &&
+        e1?.type == e2?.type &&
+        e1?.brand == e2?.brand &&
+        listEquality.equals(e1?.sizes, e2?.sizes) &&
+        listEquality.equals(e1?.colors, e2?.colors) &&
+        e1?.inStock == e2?.inStock &&
+        listEquality.equals(e1?.colorImages, e2?.colorImages);
   }
 
   @override
@@ -158,7 +206,13 @@ class ProductsRecordDocumentEquality implements Equality<ProductsRecord> {
         e?.featured,
         e?.imagesUrl,
         e?.createdAt,
-        e?.inFavorites
+        e?.inFavorites,
+        e?.type,
+        e?.brand,
+        e?.sizes,
+        e?.colors,
+        e?.inStock,
+        e?.colorImages
       ]);
 
   @override
